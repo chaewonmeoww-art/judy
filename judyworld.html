@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JUDY GAME - 쥬디월드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { overflow-x: hidden; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #FCEDF9;
+    color: #222222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  img { display: block; max-width: 100%; }
+  button { font-family: inherit; border: none; cursor: pointer; }
+
+  .inner {
+    width: 1100px;
+    max-width: 92%;
+    margin: 0 auto;
+  }
+
+  /* ===== Header ===== */
+  header {
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(255, 122, 168, .08);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+  }
+
+  .logo img { height: 64px; }
+
+  .gnb {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    gap: 46px;
+  }
+
+  .gnb a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 90px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #222222;
+    transition: color .2s;
+  }
+
+  .gnb a.on, .gnb a:hover { color: #FD79AF; }
+
+  .gnb a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 8px;
+    border-radius: 0;
+    background: #FD79AF;
+    transition: width .25s;
+  }
+
+  .gnb a:hover::after, .gnb a.on::after { width: calc(100% + 14px); }
+
+  .header-util {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .header-util .search img { width: 22px; height: 22px; }
+
+  .btn-login {
+    padding: 8px 20px;
+    border: 1.5px solid #FF9AC4;
+    border-radius: 999px;
+    background: #fff;
+    color: #FD79AF;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .btn-join {
+    padding: 9px 20px;
+    border-radius: 999px;
+    background: #FD79AF;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  /* ===== Hamburger (mobile) ===== */
+  .menu-btn {
+    display: none;
+    background: none;
+    width: 40px;
+    height: 40px;
+    position: relative;
+  }
+
+  .menu-btn span,
+  .menu-btn span::before,
+  .menu-btn span::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 8px;
+    width: 24px;
+    height: 3px;
+    border-radius: 999px;
+    background: #FD79AF;
+  }
+
+  .menu-btn span { top: 19px; }
+  .menu-btn span::before { left: 0; top: -8px; }
+  .menu-btn span::after { left: 0; top: 8px; }
+
+  /* ===== Main (빈 영역) ===== */
+  main { flex: 1; }
+
+  /* ===== Footer ===== */
+  footer {
+    background: #FF9AC4;
+    padding: 40px 0;
+    margin-top: auto;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .footer-left .f-logo img { height: 58px; }
+
+  .footer-left .f-txt {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #fff;
+  }
+
+  .footer-center {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .footer-center a:hover { text-decoration: underline; }
+
+  .footer-sns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .footer-sns a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s;
+  }
+
+  .footer-sns a:hover { background: rgba(255, 255, 255, .45); }
+
+  .footer-sns img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  /* ===== 반응형 ===== */
+  @media (max-width: 1024px) {
+    .gnb { gap: 24px; }
+    .gnb a { font-size: 15px; }
+  }
+
+  @media (max-width: 768px) {
+    .header-inner { height: 70px; }
+    .logo img { height: 48px; }
+
+    .menu-btn { display: block; }
+
+    .gnb {
+      display: none;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: #fff;
+      padding: 8px 0 14px;
+      box-shadow: 0 14px 20px rgba(255, 122, 168, .15);
+    }
+
+    .gnb.open { display: flex; }
+
+    .gnb a {
+      height: 50px;
+      justify-content: center;
+    }
+
+    .gnb a::after { display: none; }
+
+    .btn-login, .btn-join {
+      padding: 7px 14px;
+      font-size: 13px;
+    }
+
+    footer { padding: 30px 0; }
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+      gap: 18px;
+    }
+    .footer-left { flex-direction: column; gap: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .btn-login { display: none; }
+  }
+
+  /* ── NanumGothic 전체 적용 (메인 히어로 배너 제외) ── */
+  * { font-family: 'NanumGothic', sans-serif !important; }
+  .hero h2, .hero h2 * { font-family: 'Jua', sans-serif !important; }
+  .hero p { font-family: 'Noto Sans KR', sans-serif !important; }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+  <div class="inner header-inner">
+    <h1 class="logo"><a href="index.html"><img src="images/logo.png" alt="JUDY GAME"></a></h1>
+    <nav class="gnb">
+      <a href="index.html">홈</a>
+      <a href="game.html">게임</a>
+      <a href="ranking.html">랭킹</a>
+      <a href="judyworld.html" class="on">쥬디월드</a>
+      <a href="notice.html">공지사항</a>
+      <a href="community.html">커뮤니티</a>
+    </nav>
+    <div class="header-util">
+      <a href="#" class="search"><img src="images/magnifier.png" alt="검색"></a>
+      <button class="btn-login">로그인</button>
+      <button class="btn-join">회원가입</button>
+      <button class="menu-btn" aria-label="메뉴"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Main (내용 추가 예정) ===== -->
+<main></main>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="inner footer-inner">
+    <div class="footer-left">
+      <a href="index.html" class="f-logo"><img src="images/logo.png" alt="JUDY GAME"></a>
+      <div class="f-txt">
+        쥬디게임은 언제나 즐겁고 안전한<br>
+        게임 환경을 제공하기 위해 노력합니다.<br>
+        &copy; JUDYGAME. All rights reserved.
+      </div>
+    </div>
+    <div class="footer-center">
+      <a href="#">이용약관</a>&nbsp;|&nbsp;
+      <a href="#">개인정보처리방침</a>&nbsp;|&nbsp;
+      <a href="#">문의하기</a>
+    </div>
+    <div class="footer-sns">
+      <a href="#"><img src="images/instagram.png" alt="인스타그램"></a>
+      <a href="#"><img src="images/youtube.png" alt="유튜브"></a>
+      <a href="#"><img src="images/letter.png" alt="메일"></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 모바일 햄버거 메뉴
+  const menuBtn = document.querySelector('.menu-btn');
+  const gnb = document.querySelector('.gnb');
+  menuBtn.addEventListener('click', () => gnb.classList.toggle('open'));
+</script>
+</body>
+</html>
