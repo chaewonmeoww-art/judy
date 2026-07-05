@@ -18,7 +18,7 @@
 
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #FCEDF9;
+    background: #f8f8f8;
     color: #222222;
   }
 
@@ -79,7 +79,7 @@
     transform: translateX(-50%);
     width: 0;
     height: 8px;
-    border-radius: 0;
+    border-radius: 4px;
     background: #FD79AF;
     transition: width .25s;
   }
@@ -142,7 +142,8 @@
     margin-top: 18px;
     font-size: 17px;
     line-height: 1.7;
-    color: #222222;
+    color: #434343;
+    font-weight: 700;
   }
 
   .btn-start {
@@ -157,6 +158,7 @@
     border-radius: 999px;
     font-size: 19px;
     font-family: 'Jua', sans-serif;
+    font-weight: 700;
     box-shadow: 0 8px 20px rgba(255, 92, 162, .35);
     transition: transform .2s;
   }
@@ -263,21 +265,22 @@
     font-family: 'Jua', sans-serif;
     font-size: 26px;
     color: #222222;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   .sec-title img { width: 32px; height: 32px; object-fit: contain; }
 
   .more {
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 800;
     color: #222222;
     display: inline-flex;
     align-items: center;
     gap: 6px;
   }
 
-  .more:hover { color: #FD79AF; }
+  .more:hover { color: #222222; }
+  .more .arw { color: #FD79AF; }
 
   /* ===== Hot games + News ===== */
   .hot-news {
@@ -301,21 +304,23 @@
   .hot-nav { display: flex; gap: 8px; }
 
   .hot-nav button {
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background: #FCE7F1;
-    color: #FD79AF;
-    font-size: 16px;
-    font-weight: 700;
+    background: #FD79AF;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
     transition: background .2s;
   }
 
-  .hot-nav button:hover { background: #FD79AF; color: #fff; }
+  .hot-nav button:hover { background: #FF9AC4; color: #fff; }
 
   .hot-grid {
+    flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 24px;
   }
 
@@ -334,18 +339,22 @@
 
   .game-card .thumb {
     position: relative;
+    flex: 1 1 0;
+    min-height: 0;
   }
 
   .game-card .thumb img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
   }
 
   .game-card .rank {
     position: absolute;
     left: 14px;
-    bottom: -16px;
+    bottom: -10px;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -361,7 +370,7 @@
     box-shadow: 0 3px 8px rgba(255, 92, 162, .35);
   }
 
-  .game-card .info { padding: 12px 16px 12px; flex-shrink: 0; }
+  .game-card .info { padding: 14px 16px 14px; flex-shrink: 0; }
 
   .game-card .info strong {
     display: block;
@@ -370,11 +379,29 @@
     font-weight: 700;
   }
 
-  .game-card .info span {
-    display: block;
-    margin-top: 3px;
+  .game-card .meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
     font-size: 13px;
     color: #222222;
+  }
+
+  .game-card .meta .heart {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+  }
+
+  .game-card .meta .play {
+    margin-left: auto;
+    background: #FD79AF;
+    color: #fff;
+    border-radius: 14px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
   }
 
   /* News */
@@ -399,13 +426,14 @@
     font-family: 'Jua', sans-serif;
     font-size: 23px;
     color: #fff;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   .news-head a {
     color: #fff;
     font-size: 24px;
     line-height: 1;
+    font-weight: 800;
   }
 
   .news-body {
@@ -437,36 +465,33 @@
 
   .news-banner .new {
     display: inline-block;
-    color: #fff;
+    color: #920B55;
     font-size: 11px;
-    font-weight: 900;
+    font-weight: 800;
     letter-spacing: .5px;
-    text-shadow: 0 1px 3px rgba(214, 81, 141, .5);
   }
 
   .news-banner .sub {
     margin-top: 2px;
     font-size: 12px;
     font-weight: 700;
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(214, 81, 141, .5);
+    color: #920B55;
   }
 
   .news-banner h4 {
     margin-top: 4px;
     font-family: 'Jua', sans-serif;
     font-size: 23px;
-    color: #FD79AF;
-    font-weight: 400;
-    text-shadow: 0 0 6px rgba(255, 255, 255, .8);
+    color: #920B55;
+    font-weight: 800;
   }
 
   .news-banner p {
     margin-top: 7px;
     font-size: 11px;
     line-height: 1.5;
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(214, 81, 141, .5);
+    color: #920B55;
+    font-weight: 700;
   }
 
   .news-list { margin-top: 10px; }
@@ -524,7 +549,7 @@
     font-family: 'Jua', sans-serif;
     font-size: 26px;
     color: #FD79AF;
-    font-weight: 400;
+    font-weight: 800;
   }
 
   .event-head .more { color: #222222; }
@@ -564,7 +589,7 @@
     font-family: 'Jua', sans-serif;
     font-size: 19px;
     color: #FD79AF;
-    font-weight: 400;
+    font-weight: 800;
   }
 
   .event-card p {
@@ -706,7 +731,7 @@
     font-family: 'Jua', sans-serif;
     font-size: 25px;
     color: #FD79AF;
-    font-weight: 400;
+    font-weight: 800;
   }
 
   .suggest-card p {
@@ -742,7 +767,7 @@
     font-family: 'Jua', sans-serif;
     font-size: 25px;
     color: #FD79AF;
-    font-weight: 400;
+    font-weight: 800;
   }
 
   .sns-card p {
@@ -972,7 +997,7 @@
     .sec-title { font-size: 22px; }
 
     .hot-grid { gap: 16px; }
-    .game-card .thumb { height: auto; }
+    .game-card .thumb { flex: none; height: 150px; }
     .game-card .info { padding: 14px 14px 14px; }
     .game-card .info strong { font-size: 15px; }
 
@@ -1009,8 +1034,8 @@
 
     .category-box a { width: 27%; }
 
-    .hot-grid { grid-template-columns: 1fr; }
-    .game-card .thumb { height: auto; }
+    .hot-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .game-card .thumb { flex: none; height: 170px; }
 
     .event-card .thumb { height: 160px; }
 
@@ -1024,7 +1049,7 @@
   }
 
   /* ── NanumGothic 전체 적용 (메인 히어로 배너 제외) ── */
-  * { font-family: 'NanumGothic', sans-serif !important; }
+  * { font-family: 'Nanum Gothic', sans-serif !important; }
   .hero h2, .hero h2 * { font-family: 'Jua', sans-serif !important; }
   .hero p { font-family: 'Noto Sans KR', sans-serif !important; }
 </style>
@@ -1057,7 +1082,7 @@
   <div class="inner hero-inner">
     <h2>쥬디와 함께하는<br><span class="point">즐거운 게임시간!</span></h2>
     <p>다양한 쥬디게임을 무료로 즐겨보세요!<br>지금 플레이하고 추억을 만들어봐요.</p>
-    <button class="btn-start">게임 시작하기 <span class="play"></span></button>
+    <button class="btn-start" onclick="location.href='game.html'">게임 시작하기 <span class="play"></span></button>
     <div class="hero-dots">
       <span class="on"></span><span></span><span></span>
     </div>
@@ -1091,21 +1116,53 @@
         </div>
       </div>
       <div class="hot-grid">
-        <a href="#" class="game-card">
+        <a href="play.html?game=0" class="game-card">
           <div class="thumb"><img src="images/hot_01.png" alt="쥬디의 찜질방"><span class="rank">1</span></div>
-          <div class="info"><strong>쥬디의 찜질방</strong><span>시뮬레이션</span></div>
+          <div class="info">
+            <strong>쥬디의 찜질방</strong>
+            <div class="meta">
+              <span class="cat">시뮬레이션</span>
+              <img class="heart" src="images/sub_heart.png" alt="">
+              <span class="count">229,200</span>
+              <span class="play">게임하기</span>
+            </div>
+          </div>
         </a>
-        <a href="#" class="game-card">
+        <a href="play.html?game=1" class="game-card">
           <div class="thumb"><img src="images/hot_02.png" alt="쥬디의 드레스 샵"><span class="rank">2</span></div>
-          <div class="info"><strong>쥬디의 드레스 샵</strong><span>시뮬레이션</span></div>
+          <div class="info">
+            <strong>쥬디의 드레스 샵</strong>
+            <div class="meta">
+              <span class="cat">시뮬레이션</span>
+              <img class="heart" src="images/sub_heart.png" alt="">
+              <span class="count">214,190</span>
+              <span class="play">게임하기</span>
+            </div>
+          </div>
         </a>
-        <a href="#" class="game-card">
+        <a href="play.html?game=2" class="game-card">
           <div class="thumb"><img src="images/hot_03.png" alt="쥬디의 메이크업 테스트"><span class="rank">3</span></div>
-          <div class="info"><strong>쥬디의 메이크업 테스트</strong><span>메이크업</span></div>
+          <div class="info">
+            <strong>쥬디의 메이크업 테스트</strong>
+            <div class="meta">
+              <span class="cat">메이크업</span>
+              <img class="heart" src="images/sub_heart.png" alt="">
+              <span class="count">194,105</span>
+              <span class="play">게임하기</span>
+            </div>
+          </div>
         </a>
-        <a href="#" class="game-card">
+        <a href="play.html?game=3" class="game-card">
           <div class="thumb"><img src="images/hot_04.png" alt="쥬디의 외출준비"><span class="rank">4</span></div>
-          <div class="info"><strong>쥬디의 외출준비</strong><span>꾸미기</span></div>
+          <div class="info">
+            <strong>쥬디의 외출준비</strong>
+            <div class="meta">
+              <span class="cat">꾸미기</span>
+              <img class="heart" src="images/sub_heart.png" alt="">
+              <span class="count">214,180</span>
+              <span class="play">게임하기</span>
+            </div>
+          </div>
         </a>
       </div>
     </div>
@@ -1153,7 +1210,7 @@
     <div class="event-wrap">
       <div class="event-head">
         <h3>이달의 이벤트</h3>
-        <a href="#" class="more">더보기 &#8594;</a>
+        <a href="#" class="more">더보기 <span class="arw">&#8594;</span></a>
       </div>
       <div class="event-grid">
         <div class="event-card">
@@ -1207,7 +1264,7 @@
     <div class="gallery-card">
       <div class="gallery-head">
         <h3 class="sec-title"><img src="images/gallery_icon.png" alt="">쥬디월드 갤러리</h3>
-        <a href="#" class="more">더보기 &#8594;</a>
+        <a href="#" class="more">더보기 <span class="arw">&#8594;</span></a>
       </div>
       <div class="gallery-grid">
         <a href="#"><img src="images/gallery_img01.png" alt="쥬디월드 갤러리1"></a>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JUDY GAME - 게임 플레이</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: #1c1c1e; color: #222222; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  img { display: block; max-width: 100%; }
+  button { font-family: inherit; border: none; cursor: pointer; }
+
+  .inner { width: 1100px; max-width: 92%; margin: 0 auto; }
+
+  /* ===== Header ===== */
+  header { background: #fff; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(255, 122, 168, .08); }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; height: 90px; }
+  .logo img { height: 64px; }
+  .gnb { display: flex; flex: 1; justify-content: center; gap: 46px; }
+  .gnb a { position: relative; display: flex; align-items: center; height: 90px; font-size: 16px; font-weight: 700; color: #222222; transition: color .2s; }
+  .gnb a.on, .gnb a:hover { color: #FD79AF; }
+  .gnb a::after { content: ''; position: absolute; left: 50%; bottom: -3px; transform: translateX(-50%); width: 0; height: 8px; border-radius: 4px; background: #FD79AF; transition: width .25s; }
+  .gnb a:hover::after, .gnb a.on::after { width: calc(100% + 14px); }
+  .header-util { display: flex; align-items: center; gap: 14px; }
+  .header-util .search img { width: 22px; height: 22px; }
+  .btn-login { padding: 8px 20px; border: 1.5px solid #FF9AC4; border-radius: 999px; background: #fff; color: #FD79AF; font-size: 14px; font-weight: 700; }
+  .btn-join { padding: 9px 20px; border-radius: 999px; background: #FD79AF; color: #fff; font-size: 14px; font-weight: 700; }
+  .menu-btn { display: none; background: none; width: 40px; height: 40px; position: relative; }
+  .menu-btn span, .menu-btn span::before, .menu-btn span::after { content: ''; display: block; position: absolute; left: 8px; width: 24px; height: 3px; border-radius: 999px; background: #FD79AF; }
+  .menu-btn span { top: 19px; }
+  .menu-btn span::before { left: 0; top: -8px; }
+  .menu-btn span::after { left: 0; top: 8px; }
+
+  /* ===== Play stage (dark) ===== */
+  .stage { min-height: calc(100vh - 90px); background: radial-gradient(circle at 50% 0%, #2a2730 0%, #1c1c1e 60%); padding: 34px 0 70px; }
+  .stage-inner { width: 900px; max-width: 92%; margin: 0 auto; }
+
+  .crumb { font-size: 13px; font-weight: 700; color: #b9a8b2; letter-spacing: .3px; }
+  .crumb b { color: #FD79AF; }
+  .stage h1 { margin-top: 8px; font-size: 30px; font-weight: 800; color: #fff; }
+  .stage-divider { border: none; border-top: 1px solid #3a3740; margin: 20px 0 34px; }
+
+  .game-frame {
+    position: relative;
+    background: #000;
+    border: 4px solid #fff;
+    border-radius: 6px;
+    max-width: 760px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+  }
+  .game-frame img { width: 100%; display: block; }
+  .game-frame .badge {
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(253, 121, 175, .92); color: #fff;
+    font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: 999px;
+  }
+
+  .stage-meta { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 22px; color: #eee; font-weight: 700; font-size: 15px; }
+  .stage-meta .cat { color: #FF9AC4; }
+  .stage-meta .heart { width: 16px; height: 16px; }
+  .stage-meta .count { color: #fff; }
+
+  .stage-actions { display: flex; gap: 12px; justify-content: center; margin-top: 26px; flex-wrap: wrap; }
+  .stage-actions a, .stage-actions button {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 30px; border-radius: 999px; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .btn-primary { background: #FD79AF; color: #fff; box-shadow: 0 8px 20px rgba(253, 121, 175, .35); }
+  .btn-primary:hover { background: #FF9AC4; }
+  .btn-ghost { background: transparent; color: #eaeaea; border: 1.5px solid #55505c; }
+  .btn-ghost:hover { border-color: #FD79AF; color: #FD79AF; }
+
+  .stage-note { text-align: center; color: #8b8390; font-size: 13px; margin-top: 22px; line-height: 1.6; }
+
+  /* ===== Footer ===== */
+  footer { background: #FF9AC4; padding: 34px 0; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+  .footer-left { display: flex; align-items: center; gap: 22px; }
+  .footer-left .f-logo img { height: 52px; }
+  .footer-left .f-txt { font-size: 13px; line-height: 1.7; color: #fff; }
+  .footer-center { display: flex; gap: 10px; font-size: 13px; font-weight: 700; color: #fff; }
+  .footer-sns { display: flex; gap: 12px; }
+  .footer-sns a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, .25); display: flex; align-items: center; justify-content: center; }
+  .footer-sns img { width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1); }
+
+  @media (max-width: 768px) {
+    .header-inner { height: 70px; }
+    .logo img { height: 48px; }
+    .menu-btn { display: block; }
+    .gnb { display: none; position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; gap: 0; background: #fff; padding: 8px 0 14px; box-shadow: 0 14px 20px rgba(255, 122, 168, .15); }
+    .gnb.open { display: flex; }
+    .gnb a { height: 50px; justify-content: center; }
+    .gnb a::after { display: none; }
+    .stage h1 { font-size: 22px; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 18px; }
+    .footer-left { flex-direction: column; gap: 12px; }
+  }
+
+  /* NanumGothic 전체 적용 */
+  * { font-family: 'Nanum Gothic', sans-serif !important; }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+  <div class="inner header-inner">
+    <h1 class="logo"><a href="index.html"><img src="images/logo.png" alt="JUDY GAME"></a></h1>
+    <nav class="gnb">
+      <a href="index.html">홈</a>
+      <a href="game.html" class="on">게임</a>
+      <a href="ranking.html">랭킹</a>
+      <a href="judyworld.html">쥬디월드</a>
+      <a href="notice.html">공지사항</a>
+      <a href="community.html">커뮤니티</a>
+    </nav>
+    <div class="header-util">
+      <a href="#" class="search"><img src="images/magnifier.png" alt="검색"></a>
+      <button class="btn-login">로그인</button>
+      <button class="btn-join">회원가입</button>
+      <button class="menu-btn" aria-label="메뉴"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Play stage ===== -->
+<section class="stage">
+  <div class="stage-inner">
+    <div class="crumb">플래시게임 / <b id="crumbCat">타이쿤</b></div>
+    <h1 id="playTitle">쥬디의 찜질방</h1>
+    <hr class="stage-divider">
+
+    <div class="game-frame">
+      <span class="badge">PREVIEW</span>
+      <img id="gameImg" src="images/sub_game1.png" alt="">
+    </div>
+
+    <div class="stage-meta">
+      <span class="cat" id="playCat">시뮬레이션</span>
+      <img class="heart" src="images/sub_heart.png" alt="">
+      <span class="count" id="playCount">229,200</span>
+    </div>
+
+    <div class="stage-actions">
+      <button class="btn-primary" id="startBtn">게임 시작 ▶</button>
+      <a class="btn-ghost" href="game.html">← 게임 목록으로</a>
+    </div>
+
+    <p class="stage-note">※ 현재 게임은 준비 중입니다. 지금은 미리보기(썸네일)만 제공됩니다.<br>곧 실제 플레이가 가능해질 예정이에요!</p>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="inner footer-inner">
+    <div class="footer-left">
+      <a href="index.html" class="f-logo"><img src="images/logo.png" alt="JUDY GAME"></a>
+      <div class="f-txt">쥬디게임은 언제나 즐겁고 안전한<br>게임 환경을 제공하기 위해 노력합니다.<br>&copy; JUDYGAME. All rights reserved.</div>
+    </div>
+    <div class="footer-center">
+      <a href="#">이용약관</a>&nbsp;|&nbsp;
+      <a href="#">개인정보처리방침</a>&nbsp;|&nbsp;
+      <a href="#">문의하기</a>
+    </div>
+    <div class="footer-sns">
+      <a href="#"><img src="images/instagram.png" alt="인스타그램"></a>
+      <a href="#"><img src="images/youtube.png" alt="유튜브"></a>
+      <a href="#"><img src="images/letter.png" alt="메일"></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const games = [
+    ["쥬디의 찜질방", "시뮬레이션", "229,200"],
+    ["쥬디의 드레스샵", "시뮬레이션", "214,190"],
+    ["쥬디의 메이크업 테스트", "메이크업", "194,105"],
+    ["쥬디의 외출준비", "꾸미기", "214,180"],
+    ["쥬디의 달콤 디저트", "요리", "119,300"],
+    ["쥬디의 나이팅게일", "시뮬레이션", "14,180"],
+    ["쥬디의 새콤달콤 과일", "요리", "4,105"],
+    ["쥬디의 쇼핑 대작전", "꾸미기", "210,170"],
+    ["쥬디의 스위트 카페", "요리", "229,200"],
+    ["쥬디의 애완동물 샵", "시뮬레이션", "214,190"],
+    ["쥬디의 방청소 대작전", "시뮬레이션", "194,105"],
+    ["쥬디의 네일아트", "메이크업", "214,180"],
+    ["쥬디의 틀린 그림찾기", "파티", "229,200"],
+    ["쥬디의 마트 장보기", "파티", "214,190"],
+    ["쥬디의 웨딩 데이", "시뮬레이션", "194,105"],
+    ["쥬디의 즐거운 파티", "파티", "214,180"],
+    ["쥬디의 변신거울", "꾸미기", "229,200"],
+    ["쥬디의 뷰티 메이크업", "메이크업", "214,190"],
+    ["쥬디의 파티 파티", "파티", "194,105"],
+    ["쥬디의 PC방 타이쿤", "시뮬레이션", "214,180"]
+  ];
+
+  const params = new URLSearchParams(location.search);
+  let idx = parseInt(params.get('game'), 10);
+  if (isNaN(idx) || idx < 0 || idx >= games.length) idx = 0;
+
+  const [title, cat, count] = games[idx];
+  document.getElementById('playTitle').textContent = title;
+  document.getElementById('crumbCat').textContent = cat;
+  document.getElementById('playCat').textContent = cat;
+  document.getElementById('playCount').textContent = count;
+  const img = document.getElementById('gameImg');
+  img.src = 'images/sub_game' + (idx + 1) + '.png';
+  img.alt = title;
+  document.title = 'JUDY GAME - ' + title;
+
+  document.getElementById('startBtn').addEventListener('click', () => {
+    alert('게임은 준비 중입니다. 곧 플레이할 수 있어요!');
+  });
+
+  // 모바일 햄버거 메뉴
+  const menuBtn = document.querySelector('.menu-btn');
+  const gnb = document.querySelector('.gnb');
+  menuBtn.addEventListener('click', () => gnb.classList.toggle('open'));
+</script>
+</body>
+</html>

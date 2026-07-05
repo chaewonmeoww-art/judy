@@ -16,7 +16,7 @@
 
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #FCEDF9;
+    background: #f8f8f8;
     color: #222222;
   }
 
@@ -24,6 +24,12 @@
   ul { list-style: none; }
   img { display: block; max-width: 100%; }
   button { font-family: inherit; border: none; cursor: pointer; }
+
+  .cat-all, .cat-list li, .play, .pager a, button, .search, .gnb a {
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
 
   .inner {
     width: 1100px;
@@ -72,7 +78,7 @@
     transform: translateX(-50%);
     width: 0;
     height: 8px;
-    border-radius: 0;
+    border-radius: 4px;
     background: #FD79AF;
     transition: width .25s;
   }
@@ -139,7 +145,7 @@
     text-shadow: 0 3px 8px rgba(120, 70, 40, .35);
   }
 
-  .hero h2 .point { color: #FD79AF; text-shadow: 0 3px 8px rgba(255,255,255,.45); }
+  .hero h2 .point { color: #FD79AF; }
 
   .hero p {
     margin-top: 18px;
@@ -151,6 +157,9 @@
 
   /* ===== Game list section ===== */
   .game-sec { padding: 56px 0 80px; }
+
+  /* 게임 섹션은 넓게 (사이드바가 좌측 끝으로) */
+  .game-sec .inner { width: 1600px; max-width: 96%; }
 
   .game-top {
     display: flex;
@@ -201,8 +210,8 @@
 
   .layout {
     display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 30px;
+    grid-template-columns: 200px 1fr;
+    gap: 22px;
     align-items: start;
   }
 
@@ -212,47 +221,50 @@
   .cat-all {
     display: flex;
     align-items: center;
-    gap: 9px;
-    background: #FF9AC4;
+    gap: 10px;
+    background: #FD79AF;
     color: #fff;
     border-radius: 999px;
-    padding: 14px 18px;
-    font-weight: 700;
-    font-size: 16px;
+    padding: 17px 22px;
+    font-weight: 800;
+    font-size: 18px;
     box-shadow: 0 6px 14px rgba(255, 95, 162, .28);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
-  .cat-all img { width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1); }
+  .cat-all img { width: 24px; height: 24px; object-fit: contain; filter: brightness(0) invert(1); }
 
   .cat-list {
     background: #fff;
+    border: 1px solid #FCE7F1;
     border-radius: 20px;
-    padding: 12px;
+    padding: 4px 18px;
     box-shadow: 0 6px 18px rgba(255, 122, 168, .10);
   }
 
   .cat-list li {
     display: flex;
     align-items: center;
-    gap: 11px;
-    padding: 12px 14px;
-    border-radius: 14px;
-    font-weight: 500;
-    font-size: 15px;
+    gap: 12px;
+    padding: 17px 4px;
+    font-weight: 700;
+    font-size: 16px;
     color: #222222;
     cursor: pointer;
-    transition: .15s;
+    white-space: nowrap;
+    border-bottom: 1px solid #FCE7F1;
+    transition: color .15s;
   }
 
-  .cat-list li:hover { background: #FCEDF9; color: #FD79AF; }
-  .cat-list li img { width: 22px; height: 22px; object-fit: contain; }
+  .cat-list li:last-child { border-bottom: none; }
+  .cat-list li:hover { color: #FD79AF; }
+  .cat-list li img { width: 28px; height: 28px; object-fit: contain; }
 
   /* ===== Game grid ===== */
   .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    gap: 22px;
   }
 
   .card {
@@ -266,31 +278,35 @@
   .card:hover { transform: translateY(-5px); box-shadow: 0 14px 26px rgba(255, 95, 162, .22); }
 
   .card .thumb {
-    aspect-ratio: 1 / 1;
     overflow: hidden;
   }
 
   .card .thumb img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
   }
 
-  .card-body { padding: 14px 15px 16px; }
+  .card-body { padding: 14px 16px 16px; }
 
   .card-body h3 {
-    font-size: 15.5px;
+    font-size: 16px;
     font-weight: 700;
     color: #222222;
     margin-bottom: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .meta {
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 6px;
-    font-size: 12.5px;
+    font-size: 13px;
     color: #222222;
+    white-space: nowrap;
   }
 
   .meta .heart { width: 14px; height: 14px; object-fit: contain; }
@@ -298,12 +314,14 @@
 
   .play {
     margin-left: auto;
+    flex-shrink: 0;
     background: #FD79AF;
     color: #fff;
     border-radius: 14px;
     padding: 6px 14px;
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 700;
+    white-space: nowrap;
     transition: background .2s;
   }
 
@@ -462,9 +480,71 @@
   }
 
   /* ── NanumGothic 전체 적용 (메인 히어로 배너 제외) ── */
-  * { font-family: 'NanumGothic', sans-serif !important; }
+  * { font-family: 'Nanum Gothic', sans-serif !important; }
   .hero h2, .hero h2 * { font-family: 'Jua', sans-serif !important; }
   .hero p { font-family: 'Noto Sans KR', sans-serif !important; }
+
+  /* ===== 게임 모달 ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(90, 40, 70, .55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    position: relative;
+    background: #fff;
+    border-radius: 24px;
+    padding: 18px;
+    width: 100%;
+    max-width: 640px;
+    box-shadow: 0 24px 70px rgba(120, 40, 80, .4);
+    animation: modalPop .22s ease;
+  }
+  @keyframes modalPop {
+    from { transform: scale(.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .modal img {
+    display: block;
+    width: 100%;
+    border-radius: 16px;
+  }
+  .modal h3 {
+    margin: 16px 0 4px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: #222222;
+  }
+  .modal .m-desc {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FD79AF;
+    margin-bottom: 6px;
+  }
+  .modal-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #FD79AF;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+    border: 3px solid #fff;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(120, 40, 80, .3);
+  }
 </style>
 </head>
 <body>
@@ -591,7 +671,7 @@
   games.forEach((g, i) => {
     const [title, cat, count] = g;
     const card = document.createElement('a');
-    card.href = '#';
+    card.href = 'play.html?game=' + i;
     card.className = 'card';
     card.innerHTML = `
       <div class="thumb"><img src="images/sub_game${i + 1}.png" alt="${title}"></div>
